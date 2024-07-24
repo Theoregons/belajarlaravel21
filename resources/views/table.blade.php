@@ -1,5 +1,4 @@
 @extends('template')
-
 @section('main')
     <h1>Ini halaman tabel</h1>
     <table class="table">
@@ -18,10 +17,4 @@
             @endforeach
         </tbody>
     </table>
-@endsection
-
-{{--@section('js')
-    <script>
-        alert('ini halaman tabel')
-    </script>
-@endsection --}}
+@endsection 
