@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Sekolah;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 
@@ -21,8 +22,8 @@ class SiswaController extends Controller
      */
     public function create()
     {
-        // dd('ini fungsi create');
-        return view('tambah');
+        $sekolah = Sekolah::all();
+        return view('tambah', compact('sekolah'));
     }
 
     /**
@@ -34,6 +35,7 @@ class SiswaController extends Controller
             'nis' => 'required|integer',
             'nama' => 'required|string',
             'alamat' => 'required|string',
+            'sekolah_id' => 'required|integer',
         ]);
         Siswa::create($validator);
         return redirect('siswa')->with('success', 'Data berhasil diinput');
@@ -54,9 +56,9 @@ class SiswaController extends Controller
     {
         // dd('ini fungsi edit');
         $data = Siswa::find($id);
-        return view('edit', compact('data'));
-    }
-
+        $sekolah = Sekolah::all();
+        return view('edit', compact('data', 'sekolah'));
+    } 
     /**
      * Update the specified resource in storage.
      */
@@ -67,6 +69,7 @@ class SiswaController extends Controller
             'nis' => 'required|integer',
             'nama' => 'required|string',
             'alamat' => 'required|string',
+            'sekolah_id' => 'required|integer',
         ]);
         Siswa::find($id)->update($validator);
         return redirect('siswa')->with('success', 'Data berhasil diupdate');
@@ -77,7 +80,6 @@ class SiswaController extends Controller
      */
     public function destroy(string $id)
     {
-        // dd($id);
         Siswa::find($id)->delete();
         return redirect('siswa')->with('success', 'Data berhasil dihapus');
     }

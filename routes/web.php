@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\SiswaController;
+use App\Http\Controllers\UploadController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -68,4 +70,9 @@ Route::get('tabel', function () {
 // Route::get('uploadsiswa', [SiswaController::class, 'store']);
 // Route::get('tampilsiswa', [SiswaController::class, 'show']);
 
-Route::resource('siswa', SiswaController::class);
+Route::resource('siswa', SiswaController::class)->middleware(['auth', 'admin']);
+Route::resource('upload', UploadController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
